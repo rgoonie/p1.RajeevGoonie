@@ -19,7 +19,7 @@ Spring 2021 Human Computer Interaction Microwave Project
 - After choosing a preset, user must put in additional information and press start. Some users would opt to just use a preset time and stop when ready rather than put in a bunch of information. A microwave is to heat up food quickly. More button inputs mean more time to heat up food.
 
 ---
-
+**My Common and Rare Uses of my Microwave** 
 |Common Uses|Rare Uses|
 |-|-|
 |Reheat food quickly| 5+ minutes of heating|
