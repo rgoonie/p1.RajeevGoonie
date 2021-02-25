@@ -51,10 +51,13 @@ When a button is pressed on the microwave, the microwave beeps once. When the mi
 - Mistaking add 30 seconds button with the stop/clear button due to similar design
 
 **What improvement can be made?**
-- {something}
+- Reduce the number of button inputs
+- Distinguish +30 seconds button from stop button
+- Simplify putting a custom cook time
+- Remove unnecessary features
 
 **Low-Fidelity Sketches**
 
-![Low-Fidelity Prototype](./assets/sketch.jpg)
+![Low-Fidelity Prototype](./assets/low_fidelity_sketch.gif)
 
 ---
