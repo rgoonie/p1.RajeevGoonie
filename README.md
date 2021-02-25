@@ -5,11 +5,11 @@ Spring 2021 Human Computer Interaction Microwave Project
 
 **Photo Of My Current Microwave Interface**
 
-![My Microwave Interface](./assets/my_microwave_interface.gif)
+<img src="./assets/my_microwave_interface.gif" width=50%>
 
 **My Microwave In Operation**
 
-![My Microwave In Operation](./assets/my_microwave_in_operation.gif)
+<img src="./assets/my_microwave_in_operation.gif">
 
 **Current Issues**
 - Crowded with buttons therefore sometimes it hard to find the button I need
@@ -58,6 +58,6 @@ When a button is pressed on the microwave, the microwave beeps once. When the mi
 
 **Low-Fidelity Sketches**
 
-![Low-Fidelity Prototype](./assets/low_fidelity_sketch.gif)
+<img src="./assets/low_fidelity_sketch.gif" width=50%>
 
 ---
