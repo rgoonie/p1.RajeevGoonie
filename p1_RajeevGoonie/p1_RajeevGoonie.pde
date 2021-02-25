@@ -1,21 +1,25 @@
-private String display="DUMMY";
+private String display;
 private String menuState;
+private int customTimeInput;
+private int secondsRemaining;
+private int savedTime;
 
 public void setup(){
   size(500, 750);
-  frameRate(120);
+  frameRate(30);
   textAlign(CENTER, CENTER);
   
   menuState = "MAIN";
+  display = "Select Option";
 }
 
 public void draw(){
   //Clean and reset
-   clear();
-   strokeWeight(1);
-   background(42,43,46);
-   
-   drawMicrowaveInterface();
+  clear();
+  strokeWeight(1);
+  background(42,43,46);
+  
+  drawMicrowaveInterface();
 }
 
 private void drawMicrowaveInterface(){
@@ -23,16 +27,6 @@ private void drawMicrowaveInterface(){
   stroke(124, 137, 139);
   noFill();
   rect(25, 25, width-50, height-50, 20);
-  
-  //display screen
-  stroke(0);
-  fill(0);
-  rect(50, 50, width-100, 120, 20);
-  
-  //display text
-  fill(137, 168, 56);
-  textSize(50);
-  text(display, width/2, 105);
   
   //menu options
   switch(menuState){
@@ -49,6 +43,16 @@ private void drawMicrowaveInterface(){
       drawRunningMenu();
       break;
   }
+  
+  //display screen
+  stroke(0);
+  fill(0);
+  rect(50, 50, width-100, 120, 20);
+  
+  //display text
+  fill(137, 168, 56);
+  textSize(50);
+  text(display, width/2, 105);
 }
 
 private void drawMainMenu(){
@@ -75,7 +79,6 @@ private void drawMainMenu(){
 }
 
 private void drawPresetsMenu(){
-  
   stroke(0);
   strokeWeight(4);
   fill(124, 137, 139);
@@ -129,8 +132,6 @@ private void drawPresetsMenu(){
 }
 
 private void drawCustomMenu(){
-  
-  
   //Number Pad
   stroke(0);
   strokeWeight(4);
@@ -199,7 +200,7 @@ private void drawCustomMenu(){
   textSize(40);
   text("< Back", width/20*5+15, height/4*3+70);
   
-  //Back Button
+  //Start Button
   strokeWeight(5);
   fill(115, 181, 4);
   ellipse(width/4*3-15, height/4*3+75, width/3+30, 120);
@@ -218,12 +219,19 @@ private void drawRunningMenu(){
   fill(0);
   text("+30 Seconds", width/2, height/3+70);
   
-  //Stop Button
+  //Done Button
   fill(194, 24, 8);
   ellipse(width/2, height/3*2+75, width/1.5, 150);
   fill(0);
   textSize(50);
-  text("STOP", width/2, height/3*2+70);
+  text("DONE", width/2, height/3*2+70);
+  
+  int passedTime = millis() - savedTime;
+  if(secondsRemaining>0 && passedTime >= 1000){
+    secondsRemaining--;
+    savedTime = millis();
+  }
+  display = String.format("%02d:%02d", secondsRemaining/60, secondsRemaining%60);
 }
 
 public void mousePressed(){
@@ -241,24 +249,27 @@ public void mousePressed(){
       clickInRunning();
       break;
   }
-  
-  println("Went to state: "+ menuState);
 }
 
 private void clickInMain(){
   //click presets button
   if(Math.pow(mouseX - (width/2),2)/Math.pow((width/1.5/2),2) + Math.pow(mouseY - (height/4+75),2)/Math.pow(60, 2) <= 1){
     menuState="PRESETS";
+    display="Select Preset";
   }
 
   //click custom button
   if(Math.pow(mouseX - (width/2),2)/Math.pow((width/1.5/2),2) + Math.pow(mouseY - (height/4*2+75),2)/Math.pow(60, 2) <= 1){
     menuState="CUSTOM";
+    display="Input Cook Time";
+    customTimeInput = 0;
   }
 
   //click 30 seconds button
   if(Math.pow(mouseX - (width/2),2)/Math.pow((width/1.5/2),2) + Math.pow(mouseY - (height/4*3+75),2)/Math.pow(60, 2) <= 1){
     menuState="RUNNING";
+    secondsRemaining = 30;
+    savedTime = millis();
   }
 
 }
@@ -266,56 +277,155 @@ private void clickInMain(){
 private void clickInPresets(){
   //click popcorn button (2min 15sec)
   if(50<=mouseX && mouseX<=170 && 210<=mouseY && mouseY<=330){
-    println("popcorn");
+    //println("popcorn");
     menuState="RUNNING";
+    secondsRemaining = 135; 
+    savedTime = millis();
   }
   
   //click drink button (1min 20sec)
   if(190<=mouseX && mouseX<=310 && 210<=mouseY && mouseY<=330){
-    println("drink");
+    //println("drink");
     menuState="RUNNING";
+    secondsRemaining = 80;
+    savedTime = millis();
   }
   
-  //click by weight (rando time)
+  //click by weight (random time for demonstration purposes)
   if(330<=mouseX && mouseX<=450 && 210<=mouseY && mouseY<=330){
-    println("weight");
+    //println("weight");
     menuState="RUNNING";
+    secondsRemaining = 60 + (int)(Math.random()*120);
+    savedTime = millis();
   }
   
   //click 1 minute button
   if(50<=mouseX && mouseX<=170 && 400<=mouseY && mouseY<=520){
-    println("1 min");
+    //println("1 min");
     menuState="RUNNING";
+    secondsRemaining = 60;
+    savedTime = millis();
   }
   
   //click 2 minute button
   if(190<=mouseX && mouseX<=310 && 400<=mouseY && mouseY<=520){
-    println("2 min");
+    //println("2 min");
     menuState="RUNNING";
+    secondsRemaining = 120;
+    savedTime = millis();
   }
   
   //click 3 minute button
-  if(330<=mouseX && mouseX<=450 && 210<=mouseY && mouseY<=330){
-    println("weight");
+  if(330<=mouseX && mouseX<=450 && 400<=mouseY && mouseY<=520){
+    //println("weight");
     menuState="RUNNING";
+    secondsRemaining = 180;
+    savedTime = millis();
   }
   
   //click back button
   if(Math.pow(mouseX - (width/2),2)/Math.pow((width/1.5/2),2) + Math.pow(mouseY - (height/4*3+75),2)/Math.pow(60, 2) <= 1){
     menuState="MAIN";
+    display="Select Option";
   }
 }
 
-private void clickInCustom(){}
+private void clickInCustom(){
+  //click 1 button
+  if(94<=mouseX && mouseX<=169 && 190<=mouseY && mouseY<=265){
+    customTimeInput*=10;
+    customTimeInput+=1;
+    customTimeInput%=10000;
+  }
+  //click 2 button
+  if(212<=mouseX && mouseX<=287 && 190<=mouseY && mouseY<=265){
+    customTimeInput*=10;
+    customTimeInput+=2;
+    customTimeInput%=10000;
+  }
+  //click 3 button
+  if(330<=mouseX && mouseX<=405 && 190<=mouseY && mouseY<=265){
+    customTimeInput*=10;
+    customTimeInput+=3;
+    customTimeInput%=10000;
+  }
+  //click 4 button
+  if(94<=mouseX && mouseX<=169 && 285<=mouseY && mouseY<=360){
+    customTimeInput*=10;
+    customTimeInput+=4;
+    customTimeInput%=10000;
+  }
+  //click 5 button
+  if(212<=mouseX && mouseX<=287 && 285<=mouseY && mouseY<=360){
+    customTimeInput*=10;
+    customTimeInput+=5;
+    customTimeInput%=10000;
+  }
+  //click 6 button
+  if(330<=mouseX && mouseX<=405 && 285<=mouseY && mouseY<=360){
+    customTimeInput*=10;
+    customTimeInput+=6;
+    customTimeInput%=10000;
+  }
+  //click 7 button
+  if(94<=mouseX && mouseX<=169 && 380<=mouseY && mouseY<=455){
+    customTimeInput*=10;
+    customTimeInput+=7;
+    customTimeInput%=10000;
+  }
+  //click 8 button
+  if(212<=mouseX && mouseX<=287 && 380<=mouseY && mouseY<=455){
+    customTimeInput*=10;
+    customTimeInput+=8;
+    customTimeInput%=10000;
+  }
+  //click 9 button
+  if(330<=mouseX && mouseX<=405 && 380<=mouseY && mouseY<=455){
+    customTimeInput*=10;
+    customTimeInput+=9;
+    customTimeInput%=10000;
+  }
+  //click 0 button
+  if(212<=mouseX && mouseX<=287 && 475<=mouseY && mouseY<=550){
+    customTimeInput*=10;
+    customTimeInput%=10000;
+  }
+  //click backspace button
+  if(330<=mouseX && mouseX<=405 && 475<=mouseY && mouseY<=550){
+    customTimeInput/= 10;
+  }
+  if(customTimeInput == 0){
+    display = "Input Cook Time"; 
+  }
+  else{
+    display = String.format("%02d:%02d", customTimeInput/100, customTimeInput%100);
+  }
+  
+  //click back button
+  if(Math.pow(mouseX - (width/4+15),2)/Math.pow(((width/3+30)/2),2) + Math.pow(mouseY - (height/4*3+75),2)/Math.pow(60, 2) <= 1){
+    menuState="MAIN";
+    display="Select Option";
+  }
+  
+  //click start button
+  if(Math.pow(mouseX - (width/4*3-15),2)/Math.pow(((width/3+30)/2),2) + Math.pow(mouseY - (height/4*3+75),2)/Math.pow(60, 2) <= 1 && customTimeInput>0){
+    menuState="RUNNING";
+    secondsRemaining = (customTimeInput%100) + (customTimeInput/100*60);
+    if(secondsRemaining > 5999)
+      secondsRemaining = 5999;
+    savedTime = millis();
+  }
+}
 
 private void clickInRunning(){
   //click +30 seconds
   if(Math.pow(mouseX - (width/2),2)/Math.pow((width/1.5/2),2) + Math.pow(mouseY - (height/3+75),2)/Math.pow(75, 2) <= 1){
-    println("+30 Seconds");
+    secondsRemaining += 30;
   }
   
   //click stop
   if(Math.pow(mouseX - (width/2),2)/Math.pow((width/1.5/2),2) + Math.pow(mouseY - (height/3*2+75),2)/Math.pow(75, 2) <= 1){
     menuState="MAIN";
+    display="Select Option";
   }
 }
