@@ -31,7 +31,7 @@ Spring 2021 Human Computer Interaction Microwave Project
 ## Does the current interface make the common things easier?
 Yes, however I have gotten use to how to operate my microwave. For someone else, it might not be as intuitive.
 
-## Common Sequence of Action
+## Common Sequence of Operation
 1. User places food into microwave.
 2. User chooses approximate preset minute time to cook food.
 3. User waits for cook time to finish or stop the cooking before cook time is finished.
