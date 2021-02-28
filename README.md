@@ -1,6 +1,6 @@
 # HCI Project 1: The Microwave Interface
 
-**Project Report Site:** https://rgoonie.github.io/p1.RajeevGoonie/
+**Project Report Site:** https://rgoonie.github.io/p1RajeevGoonie/
 
 ---
 ## Project Synopsis
