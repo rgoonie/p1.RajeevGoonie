@@ -64,3 +64,7 @@ When a button is pressed on the microwave, the microwave beeps once. When the mi
 <img src="./assets/low_fidelity_sketch.gif" width=50%>
 
 ---
+
+## Screenshots of Final Design
+
+<img src="./assets/final-design-screenshots.gif" width="50%">
